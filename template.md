@@ -170,3 +170,33 @@ tail(litters_data)
     ## 6 Low8  #110                    25.5          42.7            20
     ## # … with 3 more variables: Pups born alive <int>, Pups dead @ birth <int>,
     ## #   Pups survive <int>
+
+## Reading from Excel
+
+``` r
+mlb11_df = read_excel("data/mlb11.xlsx")
+```
+
+``` r
+fellow_df = read_excel("data/LotR_Words.xlsx", range = "B3:D6") # read exact range in excel
+```
+
+## Read a SAS file
+
+Tried to read SAS file but failed.
+
+``` r
+pulse_df = read_sas("data/public_pulse_data.sas7bdat")
+```
+
+## Why to never use ‘read.csv’
+
+``` r
+litters_df_base = read.csv("data/FAS_litters.csv") # print things out as data frame instead of tibble
+```
+
+## Export data
+
+``` r
+write_csv(fellow_df, "data/fellowship_words.csv")
+```
