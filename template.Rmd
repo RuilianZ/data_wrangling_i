@@ -1,0 +1,33 @@
+---
+title: "Simple document"
+output: github_document
+---
+
+```{r, echo = FALSE, message = FALSE}
+library(tidyverse)
+```
+
+
+## Import some data
+
+```{r}
+litters_df = read_csv("data/FAS_litters.csv")
+```
+
+```{r}
+names(litters_df)
+
+litters_df = janitor::clean_names(litters_df) # use this function in janitor package without loading everything
+```
+
+```{r}
+litters_df
+
+head(litters_df)
+tail(litters_df) # make sure not to end up with empty rows
+```
+
+```{r, eval = FALSE}
+view(litters_df)
+```
+
