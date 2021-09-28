@@ -20,6 +20,8 @@ pups_df = read_csv("data/FAS_pups.csv")
 pups_df = janitor::clean_names(pups_df)
 ```
 
+
+
 # select
 
 ```{r}
@@ -42,6 +44,8 @@ relocate(litters_df, litter_number)
 select(pups_df, litter_number, sex, pd_ears)
 ```
 
+
+
 # filter
 
 ```{r}
@@ -59,5 +63,24 @@ filter(litters_df, group == "Con7" | gd_of_birth == 20) # or
 
 drop_na(litters_df) # drop all NA values
 drop_na(litters_df, gd0_weight) # drop NA values from selected variable
+```
+
+
+
+# mutate
+
+```{r}
+mutate(
+  litters_df, 
+  weight_change = gd18_weight - gd0_weight,
+  group = str_to_lower(group))
+```
+
+
+
+# arrange
+
+```{r}
+arrange(litters_df, gd_of_birth, gd0_weight)
 ```
 
