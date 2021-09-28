@@ -1,0 +1,43 @@
+---
+title: "Simple document"
+output: github_document
+---
+
+```{r, echo = FALSE, message = FALSE}
+library(tidyverse)
+library(readxl)
+library(haven)
+```
+
+
+## Import some data
+
+```{r}
+litters_df = read_csv("data/FAS_litters.csv")
+litters_df = janitor::clean_names(litters_df)
+
+pups_df = read_csv("data/FAS_pups.csv")
+pups_df = janitor::clean_names(pups_df)
+```
+
+# select
+
+```{r}
+select(litters_df, group, litter_number)
+select(litters_df, gd0_weight, gd18_weight)
+select(litters_df, group, starts_with("pups") # starts_with() end_with() contains()
+
+select(litters_df, group, gd0_weight:gd_of_birth) # :takes columns between these two
+
+select(litters_df, GROUP = group, litter_number)
+rename(litters_df, GROUP = group)
+
+select(litters_df, litter_number, everything())
+relocate(litters_df, litter_number)
+
+#pull(litters_df, litter_number, group)
+```
+
+```{r}
+select(pups_df, litter_number, sex, pd_ears)
+```
