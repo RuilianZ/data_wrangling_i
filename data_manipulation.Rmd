@@ -1,5 +1,5 @@
 ---
-title: "Simple document"
+title: "Data Manipulation"
 output: github_document
 ---
 
@@ -54,6 +54,10 @@ filter(litters_df, !(group == "Con7"))
 
 filter(litters_df, group %in% c("Con7", "Con8"))
 
-filter(litters_df, group == "Con7", gd_of_birth == 20)
+filter(litters_df, group == "Con7", gd_of_birth == 20) # and
+filter(litters_df, group == "Con7" | gd_of_birth == 20) # or
+
+drop_na(litters_df) # drop all NA values
+drop_na(litters_df, gd0_weight) # drop NA values from selected variable
 ```
 
