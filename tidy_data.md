@@ -45,11 +45,7 @@ analysis_df %>%
 | treatment |   4 |   8 |
 | control   |   3 |   6 |
 
-# bind\_rows
-
-# always use bind\_rows() instead rbind()
-
-# always use read\_csv() intead of read.csv()
+## bind\_rows
 
 ``` r
 fellowship_df = 
@@ -74,3 +70,59 @@ lotr_df =
   ) %>% 
   relocate(movie) # Change column order
 ```
+
+## joins
+
+``` r
+litters_df = 
+  read_csv("data/FAS_litters.csv") %>% 
+  janitor::clean_names() %>% 
+  separate(group, into = c("dose", "day_of_tx"), 3) %>% # separate the first column into two columns
+  relocate(litter_number) %>% 
+  mutate(dose = str_to_lower(dose))
+```
+
+    ## Rows: 49 Columns: 8
+
+    ## ── Column specification ────────────────────────────────────────────────────────
+    ## Delimiter: ","
+    ## chr (2): Group, Litter Number
+    ## dbl (6): GD0 weight, GD18 weight, GD of Birth, Pups born alive, Pups dead @ ...
+
+    ## 
+    ## ℹ Use `spec()` to retrieve the full column specification for this data.
+    ## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+
+``` r
+pups_df = 
+  read_csv("data/FAS_pups.csv") %>% 
+  janitor::clean_names() %>% 
+  mutate(sex = recode(sex, '1' = "male", '2' = "female")) # recode exist value to new value
+```
+
+    ## Rows: 313 Columns: 6
+
+    ## ── Column specification ────────────────────────────────────────────────────────
+    ## Delimiter: ","
+    ## chr (1): Litter Number
+    ## dbl (5): Sex, PD ears, PD eyes, PD pivot, PD walk
+
+    ## 
+    ## ℹ Use `spec()` to retrieve the full column specification for this data.
+    ## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+
+Let’s join these up!
+
+``` r
+fas_df = 
+  left_join(pups_df, litters_df, by = "litter_number") %>% 
+  relocate(litter_number, dose, day_of_tx)
+```
+
+# always use bind\_rows() instead rbind()
+
+# always use read\_csv() intead of read.csv()
+
+# always use pivot\_longer() instead of gather()
+
+# always use pivot\_wider() instead of spread()
